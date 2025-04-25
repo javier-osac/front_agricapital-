@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import Footer from "../components/footer";
-import Header from "../components/header";
+
 import "../styles/Services.css";
-import carritoIcon from "../assets/seguro.png";
+
+import ProductCard from "../components/ProductCard";
+import ProductModal from "../components/ProductModal";
 
 
-const products = {
+export const products = {
+  
   herramientas: [
     {
       id: 1,
@@ -149,50 +151,6 @@ const products = {
   ]
 };
 
-const ProductCard = ({ product, onClick }) => {
-  return (
-    <div className="product-card" onClick={() => onClick(product)}>
-      <img src={product.imageCard} alt={product.name} className="product-img" />
-      <h3>{product.name}</h3>
-      <div className="card-bottom">
-        <p className="price">${product.price.toLocaleString()}</p>
-        <button className="add-to-cart-btn">
-        <img src={carritoIcon} alt="Carrito" style={{ width: "30px", marginRight: "8px" }} />
-          Agregar al carrito
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const ProductModal = ({ product, onClose }) => {
-  if (!product) return null;
-  return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="close-btn" onClick={onClose}>❌</button>
-        <h2>{product.name}</h2>
-        <div className="modal-description">
-          {Array.isArray(product.description) ? (
-          <ul style={{ textAlign: 'left', paddingLeft: '20px' }}>
-            {product.description.map((item, index) => (
-            <li key={index}>{item}</li>
-            ))}
-          </ul>
-  ) : (
-    <p style={{ textAlign: 'left' }}>{product.description}</p>
-  )}
-</div>
-        <p><strong>Precio:</strong> ${product.price.toLocaleString()}</p>
-        <button className="add-to-cart-btn">
-        <img src={carritoIcon} alt="Carrito" style={{ width: "20px", marginRight: "8px" }} />
-          Agregar al carrito
-        </button>
-      </div>
-    </div>
-  );
-};
-
 const Services = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -223,8 +181,6 @@ const Services = () => {
     );
   };
   
-  
-
   return (
     <div className="services-page">
       
@@ -278,8 +234,6 @@ const Services = () => {
     ))}
   </div>
 </div>
-
-
       <ProductModal product={selectedProduct} onClose={closeModal} />
 
     
